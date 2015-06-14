@@ -15,3 +15,4 @@ This django project includes an app than displays the missions forecast in a rea
 - add way to compare new items against old, keep
   'relevant' and 'irrelevant' items in their categories
   if altered
+- add textarea/charfield for notes on each project

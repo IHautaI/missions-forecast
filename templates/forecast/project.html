@@ -1,0 +1,54 @@
+{% extends 'forecast/base.html' %}
+
+{% block content %}
+
+<h1>{{award.title}}</h1>
+
+  <hr>
+  <table>
+
+    <style> tr, td {padding:10px} </style>
+
+    <tr>
+      <td><a href='{% url 'forecast:country' country_name=award.MBIO_name %}'>{{award.MBIO_name}}</a></td>
+    </tr>
+
+    <tr>
+      <td>Type: {{award.award_type}}</td>
+      <!-- <td> boostrap_form bool_form </td> -->
+    </tr>
+
+    <tr>
+
+      {% if award.details.NAICS_code != '-1' and award.details.NAICS_code != '' %}
+      <td>NAICS: <a href='{% url 'forecast:NAICS' code=award.details.NAICS_code %}'>{{award.details.NAICS_code}}</a></td>
+      {% else %}
+      <td>NAICS: </td>
+      {% endif %}
+
+      {% if award.details.solicitation_number != '-1' %}
+      <td>Solicitation #: {{award.details.solicitation_number}}</td>
+      {% else %}
+      <td>Solicitation #: </td>
+      {% endif %}
+
+    </tr>
+
+    <tr>
+      <td>Fiscal Year: {{award.timeframe.fiscal_year}}</td>
+      <td>Contact: <a href='{% url 'forecast:specialist' award.specialist_id %}'>
+          {{award.specialist.name}}</a></td>
+    </tr>
+
+    <tr>
+      <td>Award Date: {{award.timeframe.ant_award_date}}</td>
+      <td>Release Date: {{award.timeframe.ant_release_date}}</td>
+    </tr>
+
+  </table>
+  <h4>Description: </h4>
+  <p>
+  {{award.details.description}}
+  </p>
+
+{% endblock %}

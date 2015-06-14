@@ -54,6 +54,7 @@ class Award(models.Model):
     timeframe = models.OneToOneField(TimeFrame, null=True)
     details = models.OneToOneField(Details, null=True)
 
+    relevance = models.NullBooleanField()
 
     def __str__(self):
         return "{}:  {}".format(self.MBIO_name, self.title)

@@ -11,11 +11,12 @@
     <style> tr, td {padding:10px} </style>
 
     <tr>
-      <td colspan='2'><h4>{{item.title}}</h4></td>
+      <td colspan='2'><h4><a href='{% url 'forecast:project' project_id=item.id %}'>{{item.title}}</a></h4></td>
     </tr>
 
     <tr>
       <td>Type: {{item.award_type}}</td>
+    <!--  <td> boostrap_form bool_form </td> -->
     </tr>
 
     <tr>
