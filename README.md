@@ -8,5 +8,5 @@ This django project includes an app than displays the missions forecast in a rea
 
 # To-do
 
-add ability to sort values on pages
-add ability to sort by award amount range
+- add ability to sort values on pages
+- add ability to sort by award amount range
