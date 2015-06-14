@@ -1,0 +1,21 @@
+{% extends 'forecast/base.html' %}
+
+{% block content %}
+  <h2>{{specialist.name}}</h2>
+
+  <p>
+    Description/credentials go here{{specialist.descr}}
+  </p>
+
+  <h3>Projects:</h3>
+
+  {% for item in projects %}
+  <hr>
+  <table>
+    <style> tr, td {padding:10px} </style>
+    <tr><td><a href='{% url 'forecast:country' country_name=item.MBIO_name %}'>{{item.MBIO_name}}</a></td></tr>
+    <tr><td>{{item.title}}</td><td>Fiscal Year: {{item.timeframe.fiscal_year}}</td></tr>
+    <tr><td>Award Date: {{item.timeframe.ant_award_date}}</td><td>Release Date: {{item.timeframe.ant_release_date}}</td></tr>
+  </table>
+  {% endfor %}
+{% endblock %}

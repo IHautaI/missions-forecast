@@ -1,0 +1,54 @@
+{% extends 'forecast/base.html' %}
+
+{% block content %}
+  <h2>{{country}} Projects</h2>
+
+
+  {% for item in projects %}
+  <hr>
+  <table>
+
+    <style> tr, td {padding:10px} </style>
+
+    <tr>
+      <td colspan='2'><h4>{{item.title}}</h4></td>
+    </tr>
+
+    <tr>
+      <td>Type: {{item.award_type}}</td>
+    </tr>
+
+    <tr>
+
+      {% if item.details.NAICS_code != '-1' and item.details.NAICS_code != '' %}
+      <td>NAICS: <a href='{% url 'forecast:NAICS' code=item.details.NAICS_code %}'>{{item.details.NAICS_code}}</a></td>
+      {% else %}
+      <td>NAICS: </td>
+      {% endif %}
+
+      {% if item.details.solicitation_number != '-1' %}
+      <td>Solicitation #: {{item.details.solicitation_number}}</td>
+      {% else %}
+      <td>Solicitation #: </td>
+      {% endif %}
+
+    </tr>
+
+    <tr>
+      <td>Fiscal Year: {{item.timeframe.fiscal_year}}</td>
+      <td>Contact: <a href='{% url 'forecast:specialist' item.specialist_id %}'>
+          {{item.specialist.name}}</a></td>
+    </tr>
+
+    <tr>
+      <td>Award Date: {{item.timeframe.ant_award_date}}</td>
+      <td>Release Date: {{item.timeframe.ant_release_date}}</td>
+    </tr>
+
+  </table>
+  <h4>Description: </h4>
+  <p>
+  {{item.details.description}}
+  </p>
+  {% endfor %}
+{% endblock %}
