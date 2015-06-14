@@ -10,3 +10,8 @@ This django project includes an app than displays the missions forecast in a rea
 
 - add ability to sort values on pages
 - add ability to sort by award amount range
+- add way to tag 'relevant' items for the organization
+- add display page for 'relevant' items
+- add way to compare new items against old, keep
+  'relevant' and 'irrelevant' items in their categories
+  if altered
