@@ -28,10 +28,6 @@ def NAICS(request, code):
 def project(request, project_id):
     award = Award.objects.get(id=project_id)
 
-    init = False
-
-    if award.relevant is True:
-        init = True
 
     if request.method == 'POST':
         form = RelevanceForm(request.POST)
@@ -43,7 +39,7 @@ def project(request, project_id):
             return redirect('forecast:country', country_name=award.MBIO_name)
 
     else:
-        form = RelevanceForm(init)
+        form = RelevanceForm(instance=award)
 
 
 

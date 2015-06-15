@@ -1,5 +1,9 @@
 {% extends 'forecast/base.html' %}
 
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
 {% block content %}
   <h2>{{country}} Projects</h2>
 
@@ -16,7 +20,6 @@
 
     <tr>
       <td>Type: {{item.award_type}}</td>
-    <!--  <td> boostrap_form bool_form </td> -->
     </tr>
 
     <tr>
