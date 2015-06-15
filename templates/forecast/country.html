@@ -6,6 +6,7 @@
 
 {% block content %}
   <h2>{{country}} Projects</h2>
+  <a href='{% url 'forecast:country-relevant' country_name=country %}'>See only relevant items</a>
 
 
   {% for item, form in projects %}
@@ -24,7 +25,7 @@
       <form method='POST' action='{% url 'forecast:project' project_id=item.id %}'>
         {% csrf_token %}
       <td>{% bootstrap_form form layout='inline' %}</td>
-    </form
+    </form>
 
     </tr>
 

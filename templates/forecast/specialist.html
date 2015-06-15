@@ -1,5 +1,9 @@
 {% extends 'forecast/base.html' %}
 
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
 {% block content %}
   <h2>{{specialist.name}}</h2>
 
@@ -9,11 +13,20 @@
 
   <h3>Projects:</h3>
 
-  {% for item in projects %}
+  {% for item, form in projects %}
   <hr>
   <table>
     <style> tr, td {padding:10px} </style>
-    <tr><td><a href='{% url 'forecast:country' country_name=item.MBIO_name %}'>{{item.MBIO_name}}</a></td></tr>
+
+    <tr><td><a href='{% url 'forecast:country' country_name=item.MBIO_name %}'>{{item.MBIO_name}}</a></td>
+
+      <form method='POST' action='{% url 'forecast:project' project_id=item.id %}'>
+        {% csrf_token %}
+      <td>{% bootstrap_form form layout='inline' %}</td>
+    </form>
+
+    </tr>
+
     <tr><td>{{item.title}}</td><td>Fiscal Year: {{item.timeframe.fiscal_year}}</td></tr>
     <tr><td>Award Date: {{item.timeframe.ant_award_date}}</td><td>Release Date: {{item.timeframe.ant_release_date}}</td></tr>
   </table>

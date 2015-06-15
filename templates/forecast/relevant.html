@@ -5,8 +5,8 @@
 {% bootstrap_javascript %}
 
 {% block content %}
-  <h2>NAICS: {{NAICS_code}}</h2>
-
+  <h2>{{country}} Projects</h2>
+  <a href='{% url 'forecast:country' country_name=country %}'>See all items</a>
 
   {% for item, form in projects %}
   <hr>
@@ -15,19 +15,33 @@
     <style> tr, td {padding:10px} </style>
 
     <tr>
+      <td colspan='2'><h4><a href='{% url 'forecast:project' project_id=item.id %}'>{{item.title}}</a></h4></td>
+    </tr>
+
+    <tr>
+      <td>Type: {{item.award_type}}</td>
+
       <form method='POST' action='{% url 'forecast:project' project_id=item.id %}'>
         {% csrf_token %}
       <td>{% bootstrap_form form layout='inline' %}</td>
     </form>
+
     </tr>
 
     <tr>
-      <td><a href='{% url 'forecast:country' country_name=item.MBIO_name %}'>{{item.MBIO_name}}</a></td>
-      <td>Type: {{item.award_type}}</td>
-    </tr>
 
-    <tr>
-      <td colspan='2'><h4>{{item.title}}</h4></td>
+      {% if item.details.NAICS_code != '-1' and item.details.NAICS_code != '' %}
+      <td>NAICS: <a href='{% url 'forecast:NAICS' code=item.details.NAICS_code %}'>{{item.details.NAICS_code}}</a></td>
+      {% else %}
+      <td>NAICS: </td>
+      {% endif %}
+
+      {% if item.details.solicitation_number != '-1' %}
+      <td>Solicitation #: {{item.details.solicitation_number}}</td>
+      {% else %}
+      <td>Solicitation #: </td>
+      {% endif %}
+
     </tr>
 
     <tr>
@@ -39,14 +53,6 @@
     <tr>
       <td>Award Date: {{item.timeframe.ant_award_date}}</td>
       <td>Release Date: {{item.timeframe.ant_release_date}}</td>
-    </tr>
-
-    <tr>
-      {% if item.details.solicitation_number != '-1' %}
-      <td>Solicitation #: {{item.details.solicitation_number}}</td>
-      {% else %}
-      <td>Solicitation #: </td>
-      {% endif %}
     </tr>
 
   </table>
