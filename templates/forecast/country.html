@@ -8,7 +8,7 @@
   <h2>{{country}} Projects</h2>
 
 
-  {% for item in projects %}
+  {% for item, form in projects %}
   <hr>
   <table>
 
@@ -20,6 +20,12 @@
 
     <tr>
       <td>Type: {{item.award_type}}</td>
+
+      <form method='POST' action='{% url 'forecast:project' project_id=item.id %}'>
+        {% csrf_token %}
+      <td>{% bootstrap_form form layout='inline' %}</td>
+    </form
+
     </tr>
 
     <tr>

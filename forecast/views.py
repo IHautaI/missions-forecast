@@ -13,6 +13,17 @@ def specialist(request, specialist_id):
 
 def country(request, country_name):
     awards = Award.objects.filter(MBIO_name=country_name)
+    awards = list(zip(awards, map(lambda x: RelevanceForm(instance=x), awards)))
+
+    if request.method == 'POST':
+        form = RelevanceForm(request.POST)
+        if form.is_valid():
+            award = form.award
+            award.relevant = form.save(commit=False).relevant
+            award.save()
+
+            return redirect('forecast:country', country_name=award.MBIO_name)
+
 
     context = {'country':country_name, 'projects':awards}
     return render(request, 'forecast/country.html', context)
