@@ -6,7 +6,7 @@
 
 {% block content %}
   <h2>{{country}} Projects</h2>
-  <a href='{% url 'forecast:country-relevant' country_name=country %}'>See only relevant items</a>
+  <a href='{% url 'forecast:country-relevant' country_name=country %}'>See only items marked relevant</a>
 
 
   {% for item, form in projects %}
