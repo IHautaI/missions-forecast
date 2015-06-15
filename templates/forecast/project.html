@@ -1,4 +1,10 @@
+<!DOCTYPE html>
+
 {% extends 'forecast/base.html' %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 
 {% block content %}
 
@@ -15,7 +21,14 @@
 
     <tr>
       <td>Type: {{award.award_type}}</td>
-      <!-- <td> boostrap_form bool_form </td> -->
+
+      <style> button {color:#A1A021} </style>
+
+      <form method='POST' action='{% url 'forecast:project' project_id=award.id %}'>
+        {% csrf_token %}
+      <td>{% bootstrap_form bool_form layout='inline' %}</td>
+    </form>
+
     </tr>
 
     <tr>

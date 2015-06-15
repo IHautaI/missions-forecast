@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from forecast.models import Specialist, Award
+from forecast.forms import RelevanceForm
 # Create your views here.
 def specialist(request, specialist_id):
     specialist = Specialist.objects.get(id=specialist_id)
@@ -27,5 +28,24 @@ def NAICS(request, code):
 def project(request, project_id):
     award = Award.objects.get(id=project_id)
 
-    context = {'award': award}
+    init = False
+
+    if award.relevant is True:
+        init = True
+
+    if request.method == 'POST':
+        form = RelevanceForm(request.POST)
+        if form.is_valid():
+
+            award.relevant = form.save(commit=False).relevant
+            award.save()
+
+            return redirect('forecast:country', country_name=award.MBIO_name)
+
+    else:
+        form = RelevanceForm(init)
+
+
+
+    context = {'award': award, 'bool_form': form}
     return render(request, 'forecast/project.html', context)
